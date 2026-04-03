@@ -1,0 +1,29 @@
+# --- Claude / AI session files ---
+CLAUDE.md
+project_summary.md
+.claude/
+
+# --- Pipeline data and outputs ---
+data/
+results/
+logs/
+
+# --- Cluster-specific submission records (hardcoded paths, not portable) ---
+config/TSCC_config_Run_452026_allTraits.yaml
+
+# --- R artifacts ---
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# --- Python artifacts ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# --- System / Snakemake ---
+.DS_Store
+.snakemake/
+*.tmp

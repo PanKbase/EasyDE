@@ -1,0 +1,30 @@
+Tissue	CellType	Description	Genes	Confidence	NumGenes	Category
+ALL	All (artifact)	Dissociation - IEG/AP-1 transcription factors induced by enzymatic dissociation	FOS|FOSB|FOSL1|FOSL2|JUN|JUNB|JUND|EGR1|ATF3|NR4A1|NR4A2|NR4A3	High	12	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Heat shock proteins upregulated by warm dissociation (37C)	HSPA1A|HSPA1B|HSP90AB1|HSP90AA1|HSPA5|HSPA8|HSPH1|DNAJB1|DNAJB4	High	9	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Stress-responsive signaling (phosphatases, IER, anti-proliferative)	DUSP1|DUSP2|IER2|IER3|IER5|BTG1|BTG2|SOCS3|ZFP36|KLF2|KLF4|KLF6	High	12	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Apoptosis/cell death markers from tissue handling	BAX|BCL2|CASP3|CASP8|GADD45B|GADD45G|PPP1R15A|DDIT3	Medium	8	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Oxidative stress / NRF2 pathway from tissue disruption	NFE2L2|HMOX1|TXNRD1|GCLC|GCLM|SOD1|SOD2|GPX1|PRDX1|MT1X|MT2A	Medium	11	Dissociation_Stress
+ALL	All (artifact)	Dissociation - NF-kB and cytokine inflammation artifacts from processing	NFKBIA|NFKB1|CCL2|CCL3|CCL4|CXCL1|CXCL2|CXCL10|IL1B|IL6|TNF|CEBPB|CEBPD	Medium	13	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Additional IEGs and signaling in core dissociation signature	MYC|SRF|CITED2|ID1|ID2|ID3|HIF1A|VEGFA|TGFB1	Medium	9	Dissociation_Stress
+ALL	All (artifact)	Dissociation - Pancreas-specific artifacts from digestive enzyme activation	REG1A|REG3A|PRSS1|CELA3A|CPA1|CTRC|ACTA2	Medium	7	Dissociation_Stress
+ALL	All (artifact)	Ambient RNA - Acinar digestive enzyme soup (dominant contaminant in pancreas)	PRSS1|CTRB1|CTRB2|PNLIP|CLPS|CPA1|CPA2|CPB1|CEL|CELA2A|CELA3A|CELA3B|REG1A|REG1B|REG3A|CTRC|PNLIPRP1|PNLIPRP2|PLA2G1B|GP2|SPINK1	High	21	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Islet endocrine hormone soup contaminating non-endocrine cells	INS|GCG|SST|PPY|IAPP|CHGA|CHGB|SCG5|TTR|GC	High	10	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Hemoglobin genes from RBC lysis (universal contaminant)	HBA1|HBA2|HBB|HBD|HBG1|HBG2|HBE1|HBM|HBQ1|HBZ|ALAS2	High	11	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Mitochondrial transcripts indicating cell damage/lysis	MT-CO1|MT-CO2|MT-CO3|MT-ND1|MT-ND2|MT-ND3|MT-ND4|MT-ND4L|MT-ND5|MT-ND6|MT-CYB|MT-ATP6|MT-ATP8|MT-RNR1|MT-RNR2	High	15	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Ribosomal protein genes (RPL family, background noise)	RPL3|RPL4|RPL5|RPL6|RPL7|RPL7A|RPL8|RPL9|RPL10|RPL10A|RPL11|RPL12|RPL13|RPL13A|RPL14|RPL15|RPL17|RPL18|RPL18A|RPL19|RPL21|RPL22|RPL23|RPL23A|RPL24|RPL26|RPL27|RPL27A|RPL28|RPL29|RPL30|RPL31|RPL32|RPL34|RPL35|RPL35A|RPL36|RPL37|RPL37A|RPL38|RPL39|RPL40|RPL41	High	43	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Ribosomal protein genes (RPS family, background noise)	RPS2|RPS3|RPS3A|RPS4X|RPS5|RPS6|RPS7|RPS8|RPS9|RPS10|RPS11|RPS12|RPS13|RPS14|RPS15|RPS15A|RPS16|RPS17|RPS18|RPS19|RPS20|RPS21|RPS23|RPS24|RPS25|RPS26|RPS27|RPS27A|RPS28|RPS29	High	30	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Immunoglobulin contamination from plasma/B-cells	IGKC|IGHG4|IGLC2|IGLC3|IGHA1|IGHM|JCHAIN	Medium	7	Ambient_RNA
+ALL	All (artifact)	Ambient RNA - Highly expressed housekeeping genes dominating soup	MALAT1|ACTB|GAPDH|EEF1A1|TMSB4X|B2M|FTL|FTH1|TPT1|UBB|UBC	Medium	11	Ambient_RNA
+ALL	All (artifact)	Doublet - Beta-Alpha co-expression (most common pancreatic doublet)	INS|GCG|IAPP|MAFA|ARX|IRX2	High	6	Doublet
+ALL	All (artifact)	Doublet - Endocrine-Exocrine hybrid markers	INS|GCG|SST|PPY|PRSS1|CPA1|CTRB1|CTRB2|PNLIP|KRT19|SOX9	High	11	Doublet
+ALL	All (artifact)	Doublet - Endocrine-Stellate hybrid markers	INS|GCG|COL1A1|COL1A2|COL3A1|ACTA2|PDGFRA|PDGFRB	High	8	Doublet
+ALL	All (artifact)	Doublet - Endocrine-Immune hybrid markers	INS|GCG|CD3D|CD3E|CD4|CD8A|CD8B|CD19|CD79A|CD79B|CD14|CD68	High	12	Doublet
+ALL	All (artifact)	Doublet - Endocrine-Endothelial hybrid markers	INS|GCG|PECAM1|CDH5|VWF|ERG|FLT1|KDR	Medium	8	Doublet
+ALL	All (artifact)	Doublet - High-complexity lncRNAs amplified in multiplets	MALAT1|NEAT1|XIST	Medium	3	Doublet
+ALL	All (artifact)	Doublet - Cross-lineage TF co-expression indicating multiplets	MAFA|ARX|PDX1|NKX6-1|PAX6|NEUROG3|SOX9|HNF1B|PTF1A|RBPJL	Medium	10	Doublet
+ALL	All (artifact)	Cell Cycle - S-phase genes (Tirosh et al. 2016 / Seurat)	MCM5|PCNA|TYMS|FEN1|MCM2|MCM4|RRM1|UNG|GINS2|MCM6|CDCA7|DTL|PRIM1|UHRF1|MLF1IP|HELLS|RFC2|RPA2|NASP|RAD51AP1|GMNN|WDR76|SLBP|CCNE2|UBR7|POLD3|MSH2|ATAD2|RAD51|RRM2|CDC45|CDC6|EXO1|TIPIN|DSCC1|BLM|CASP8AP2|USP1|CLSPN|POLA1|CHAF1B|BRIP1|E2F8	High	43	Cell_Cycle
+ALL	All (artifact)	Cell Cycle - G2/M-phase genes (Tirosh et al. 2016 / Seurat)	HMGB2|CDK1|NUSAP1|UBE2C|BIRC5|TPX2|TOP2A|NDC80|CKS2|NUF2|CKS1B|MKI67|TMPO|CENPF|TACC3|FAM64A|SMC4|CCNB2|CKAP2L|CKAP2|AURKB|BUB1|KIF11|ANP32E|TUBB4B|GTSE1|KNL1|HJURP|CDCA3|HN1|CDC20|TTK|CDC25C|KIF2C|RANGAP1|NCAPD2|DLGAP5|CDCA2|CDCA8|ECT2|KIF23|HMMR|AURKA|PSRC1|ANLN|LBR|CKAP5|CENPE|CTCF|NEK2|G2E3|GAS2L3|CBX5|CENPA	High	54	Cell_Cycle
+ALL	All (artifact)	Cell Cycle - General proliferation markers	MKI67|PCNA|TOP2A|CCNB1|CCNB2|CDK1|BIRC5|AURKA|AURKB|PLK1|BUB1|BUB1B|MAD2L1|CENPE|CENPF|KIF2C|KIF11|NUSAP1	High	18	Cell_Cycle
+ALL	All (artifact)	Cell Cycle - G1/S transition cyclins and CDKs	CCND1|CCND2|CCND3|CCNE1|CCNE2|CDK2|CDK4|CDK6|RB1|E2F1|E2F2|E2F3|MYC|CDKN1A|CDKN1B	High	15	Cell_Cycle
+ALL	All (artifact)	Cell Cycle - Replication-dependent histone genes (S-phase confounders)	HIST1H1A|HIST1H1B|HIST1H1C|HIST1H1D|HIST1H1E|HIST1H2AB|HIST1H2AC|HIST1H2AD|HIST1H2AE|HIST1H2AG|HIST1H2AH|HIST1H2AI|HIST1H2AJ|HIST1H2BF|HIST1H2BG|HIST1H2BH|HIST1H2BI|HIST1H2BJ|HIST1H2BK|HIST1H2BL|HIST1H2BM|HIST1H2BN|HIST1H3A|HIST1H3B|HIST1H3C|HIST1H3D|HIST1H3F|HIST1H3G|HIST1H3H|HIST1H4A|HIST1H4B|HIST1H4C|HIST1H4D|HIST1H4E|HIST1H4F|HIST1H4H|HIST2H2AC|HIST2H2BE	High	38	Cell_Cycle
+ALL	All (artifact)	Cell Cycle - Checkpoint regulators and CDK inhibitors	TP53|RB1|CDKN1A|CDKN1B|CDKN2A|CDKN2B|CHEK1|CHEK2|ATM|ATR|CCNA2|CCNB1|CDC25A|CDC25B|CDC25C|WEE1|PLK1|MAD2L1|BUB3|AURKA	High	20	Cell_Cycle

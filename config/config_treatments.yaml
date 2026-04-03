@@ -1,0 +1,120 @@
+# =============================================================================
+# EasyDE — Treatment Contrasts Configuration
+# Paired cytokine / small-molecule treatment analysis (PanKbase)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# INPUT FILES
+# -----------------------------------------------------------------------------
+inputs:
+  counts_dir:      "data/counts"
+  sample_metadata: "data/sample_metadata.csv"
+  contrasts_file:  "contrasts/contrasts_treatments.csv"
+
+
+# -----------------------------------------------------------------------------
+# OUTPUT DIRECTORIES
+# Separate results and logs dirs keep treatment results isolated from traits.
+# -----------------------------------------------------------------------------
+outputs:
+  results_dir: "/nfs/lab/tscc/projects/PankBase/DifferentialGenes/EasyDE/Mar5_allTreatments/results"
+  logs_dir:    "/nfs/lab/tscc/projects/PankBase/DifferentialGenes/EasyDE/Mar5_allTreatments/logs"
+
+
+# -----------------------------------------------------------------------------
+# ANALYSIS STEPS
+# -----------------------------------------------------------------------------
+steps:
+  deseq_base:      true
+  ruvseq:          true
+  fgsea:           true
+  paired_analysis: true   # All treatment contrasts are paired (matched donors)
+
+
+# -----------------------------------------------------------------------------
+# OUTPUT FILES
+# -----------------------------------------------------------------------------
+write_outputs:
+  coldata_csv:               true
+  deseq_base_results:        true
+  ruvseq_results:            true
+  fgsea_results_all:         true
+  fgsea_results_significant: true
+  volcano_plots:             true
+  ruvseq_diagnostic_plots:   true
+  contrast_summary:          true
+
+
+# -----------------------------------------------------------------------------
+# SAMPLE FILTERING THRESHOLDS
+# -----------------------------------------------------------------------------
+filtering:
+  min_cells_per_sample: 20
+  min_gene_counts:      5
+  donor_col:            "donor_accession"
+  paired:
+    pair_on: "donor_accession"
+
+
+# -----------------------------------------------------------------------------
+# DESEQ2 SETTINGS
+# -----------------------------------------------------------------------------
+deseq2:
+  fdr_threshold:            0.05
+  l2fc_threshold:           0
+  scale_numeric_covariates: true
+  lfc_shrinkage:            true
+
+
+# -----------------------------------------------------------------------------
+# RUVSEQ SETTINGS
+# -----------------------------------------------------------------------------
+ruvseq:
+  max_latent_factors:       10
+  empirical_pval_threshold: 0.5
+
+
+# -----------------------------------------------------------------------------
+# FGSEA SETTINGS
+# -----------------------------------------------------------------------------
+fgsea:
+  fdr_threshold:        0.10
+  min_gene_set_size:    10
+  max_gene_set_size:    500
+  n_top_pathways_plot:  20
+  run_on:               "both"
+  ranking_stat:         "stat"
+  gene_sets_file:       "resources/gsea_files/reactome_kegg.gmt.txt"
+  exclude_gene_lists:
+    - "resources/gsea_files/rpl_genes.csv"
+    - "resources/gsea_files/rps_genes.csv"
+    - "resources/gsea_files/mtr_genes.csv"
+  exclude_gene_patterns:
+    - "^MT-"
+    - "^NA"
+
+
+# -----------------------------------------------------------------------------
+# BENCHMARKING
+# Benchmark DE results against curated gene signatures (step 07).
+# Disabled if signature_file is empty ("").
+# -----------------------------------------------------------------------------
+benchmarking:
+  # Master signature file with columns: signature_id, tissue, cell_type,
+  # control_type, category, class, subcategory, description, genes, num_genes,
+  # confidence, source_file. Genes are pipe-separated.
+  # Hierarchy: control_type (positive/negative) > category (cell_identity /
+  # artifact / subject_confounder) > class (~34 mid-level) > subcategory.
+  # Signatures with cell_type matching the stratum or "all_cells" are tested.
+  signature_file: "resources/benchmarking/master_gene_signatures.tsv"
+
+  # Tissue filter: only signatures matching this tissue (case-insensitive)
+  # or with tissue = "pan_tissue" are used.
+  tissue: "Pancreas"
+
+
+# -----------------------------------------------------------------------------
+# LOGGING
+# -----------------------------------------------------------------------------
+logging:
+  level: "INFO"

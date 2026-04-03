@@ -1,0 +1,95 @@
+# EasyDE — Contrasts Definition File
+# =============================================================================
+# One row = one comparison to run across all specified strata (cell types,
+# tissues, organoid lines, etc.).
+#
+# SEPARATOR: multi-value fields use "|" as delimiter.
+#   Example:  "Sex|BMI|Age"  means three separate values: Sex, BMI, Age
+#
+# COLUMN DOCUMENTATION:
+#
+#   contrast_id        Unique identifier for this comparison. Used in all output
+#                      filenames and log messages. No spaces — use underscores.
+#                      Example: T1D_vs_ND
+#
+#   contrast_var       Column name in sample_metadata.csv that holds the
+#                      variable being tested. If using RuvSEQ, any W_k that significantly
+#                      correlates with the contrast_var is REMOVED from the final formula.
+#                      This prevents accidentally regressing out disease signal.
+#                      Example: disease_status
+#
+#   biosample_id_col   Column name in sample_metadata.csv that uniquely identifies
+#                      each biosample — the donor or subject-level unit that DESeq2
+#                      treats as one observation. In pseudobulk RNA-seq this is
+#                      typically a donor ID, sample accession, or subject code.
+#                      Must exactly match column headers in the count matrices.
+#                      NOTE: This is NOT the biological donor ID used for
+#                      deduplication (see filtering.donor_col in config.yaml).
+#                      A single donor may have multiple biosamples (e.g. two
+#                      tissue types), but each biosample is one DESeq2 row.
+#                      Example: sample_accession
+#
+#   control_grp        Value in contrast_var that defines the REFERENCE group.
+#                      Leave empty for numeric (continuous) contrast_var.
+#                      Example: ND
+#
+#   experimental_grp   Value in contrast_var that defines the EXPERIMENTAL group.
+#                      Leave empty for numeric (continuous) contrast_var.
+#                      Example: T1D
+#
+#   covariates         Additional covariates included in the DESeq2 model formula.
+#                      Separate multiple values with "|". Leave empty for none.
+#                      Example: Sex|BMI
+#
+#   latent_corr_vars   Variables to correlate against RUVseq latent factors (W_k).
+#                      All correlations are shown in the heatmap, helping interpret what  
+#                      each latent factor captures.
+#                      Should include the contrast_var itself plus known confounders.
+#                      Separate multiple values with "|". Leave empty for none.
+#                      Example: disease_status|Sex|BMI|Age
+#
+#   filter_col_1       Column name to filter samples on (first filter).
+#                      Leave empty to apply no filters.
+#                      Example: treatment
+#
+#   filter_val_1       Allowed value(s) for filter_col_1.
+#                      Separate multiple allowed values with "|".
+#                      Example: no_treatment
+#
+#   filter_col_2       Column name for a second filter (optional).
+#   filter_val_2       Allowed values for filter_col_2.
+#
+#                      You can add as many filter_col_N / filter_val_N column
+#                      PAIRS as you need (filter_col_3/filter_val_3, etc.).
+#                      The pipeline discovers all pairs automatically — just
+#                      add columns and fill them in. Empty pairs are skipped.
+#
+#   strata             The biosample groups to loop the same analysis over.
+#                      Each stratum gets its own independent run of the full
+#                      analysis pipeline (filtering, DESeq2, RUVseq, fGSEA)
+#                      using only the biosamples belonging to that group.
+#
+#                      In practice this is almost always a list of cell types
+#                      (e.g. from pseudobulk scRNA-seq) or tissue types (e.g.
+#                      from bulk RNA-seq across multiple biopsy sites). It could
+#                      also be organoid lines, treatment conditions used as
+#                      grouping layers, or any other stratification that has its
+#                      own count matrix file.
+#
+#                      Each value must match a count matrix filename in counts_dir
+#                      after safe-name conversion (spaces and special characters
+#                      replaced with underscores).
+#                      Separate multiple values with "|".
+#                      Example: Beta|Alpha|Delta|Ductal|Acinar
+#
+#
+# =============================================================================
+# NOTE: Run-level settings (scaling, paired analysis, RUVseq, fGSEA toggles)
+# are controlled globally in config.yaml — not per contrast here.
+# If you need different settings for different contrasts, run separate
+# pipeline instances with different config files.
+# =============================================================================
+contrast_id,contrast_var,biosample_id_col,control_grp,experimental_grp,covariates,latent_corr_vars,filter_col_1,filter_val_1,filter_col_2,filter_val_2,strata
+T1D_vs_ND,disease_status,sample_accession,ND,T1D,Sex|BMI,disease_status|Sex|BMI|Age,treatment,no_treatment,,,Beta|Alpha|Delta
+T2D_vs_ND,disease_status,sample_accession,ND,T2D,Sex|BMI|Age,disease_status|Sex|BMI|Age,treatment,no_treatment,,,Beta|Alpha|Acinar
+BMI_continuous,BMI,sample_accession,,,Sex|Age,BMI|Sex|Age,treatment,no_treatment,,,Beta

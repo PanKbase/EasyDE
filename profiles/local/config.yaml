@@ -1,0 +1,12 @@
+# =============================================================================
+# Snakemake profile — local execution
+# =============================================================================
+# Place this file at: profiles/local/config.yaml
+# Usage: snakemake --profile profiles/local
+# =============================================================================
+
+cores: 64
+keep-going: true
+printshellcmds: true
+rerun-incomplete: true
+latency-wait: 30

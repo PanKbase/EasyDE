@@ -1,0 +1,2 @@
+contrast_id,contrast_var,biosample_id_col,control_grp,experimental_grp,strata,covariates,latent_corr_vars,filter_col_1,filter_val_1,filter_col_2,filter_val_2,filter_col_3,filter_val_3
+ND_vs_T1D,Description of diabetes status,sample_accession,Control Without Diabetes,Type 1 Diabetes,Beta|Alpha|Acinar,Age (years)|Gender|BMI|Ethnicities|chemistry,Description of diabetes status|Age (years)|Gender|BMI|Ethnicities|chemistry,treatment,no_treatment,,,,

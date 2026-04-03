@@ -1,0 +1,25 @@
+# =============================================================================
+# Snakemake profile — SLURM execution (TSCC condo)
+# =============================================================================
+# Place at: profiles/slurm/config.yaml
+# Usage: snakemake --profile $PWD/profiles/slurm --config pipeline_config=config/config.yaml
+# =============================================================================
+
+#executor: slurm
+jobs: 500
+keep-going: true
+printshellcmds: true
+rerun-incomplete: true
+latency-wait: 60
+restart-times: 3
+max-status-checks-per-second: 1
+
+cluster: "sbatch --parsable --account={resources.slurm_account} --partition={resources.slurm_partition} --qos={resources.slurm_qos} --mem={resources.mem_mb} --cpus-per-task={resources.cpus} --time={resources.time} --output=logs/slurm/{rule}/{wildcards}/%j.out --error=logs/slurm/{rule}/{wildcards}/%j.err"
+
+default-resources:
+  slurm_account: csd854
+  slurm_partition: platinum
+  slurm_qos: hcp-csd854
+  mem_mb: 8000
+  time: 240
+  cpus: 1

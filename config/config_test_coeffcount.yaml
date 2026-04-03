@@ -1,0 +1,60 @@
+inputs:
+  counts_dir: "data/counts"
+  sample_metadata: "data/sample_metadata.csv"
+  contrasts_file: "contrasts/contrasts_test_coeffcount.csv"
+
+outputs:
+  results_dir: "results_test_coeffcount"
+  logs_dir: "logs_test_coeffcount"
+
+steps:
+  deseq_base: true
+  ruvseq: true
+  fgsea: false
+  paired_analysis: false
+
+write_outputs:
+  coldata_csv: true
+  deseq_base_results: true
+  ruvseq_results: true
+  fgsea_results_all: false
+  fgsea_results_significant: false
+  volcano_plots: false
+  ruvseq_diagnostic_plots: false
+  contrast_summary: true
+
+filtering:
+  min_cells_per_sample: 20
+  min_gene_counts: 5
+  donor_col: "donor_accession"
+  paired:
+    pair_on: "donor_accession"
+
+deseq2:
+  fdr_threshold: 0.05
+  l2fc_threshold: 0
+  scale_numeric_covariates: true
+  lfc_shrinkage: true
+
+ruvseq:
+  max_latent_factors: 10
+  empirical_pval_threshold: 0.5
+
+fgsea:
+  fdr_threshold: 0.10
+  min_gene_set_size: 10
+  max_gene_set_size: 500
+  n_top_pathways_plot: 20
+  run_on: "both"
+  ranking_stat: "stat"
+  gene_sets_file: "resources/gsea_files/reactome_kegg.gmt.txt"
+  exclude_gene_lists:
+    - "resources/gsea_files/rpl_genes.csv"
+    - "resources/gsea_files/rps_genes.csv"
+    - "resources/gsea_files/mtr_genes.csv"
+  exclude_gene_patterns:
+    - "^MT-"
+    - "^NA"
+
+logging:
+  level: "INFO"

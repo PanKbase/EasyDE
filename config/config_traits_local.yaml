@@ -1,0 +1,205 @@
+# =============================================================================
+# EasyDE -- Main Configuration File
+# =============================================================================
+# All pipeline behavior is controlled from here.
+# No paths, thresholds, or flags should be hardcoded in any script.
+#
+# SEPARATOR NOTE: multi-value fields in contrasts.csv use "|" as delimiter
+#   Example: "Sex|BMI|Age" means covariates Sex, BMI, and Age
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# INPUT FILES
+# Paths are relative to the pipeline root directory.
+# -----------------------------------------------------------------------------
+inputs:
+  # Directory containing one count matrix CSV per stratum.
+  # A stratum is one biosample group (cell type, tissue, organoid line, etc.)
+  # that the pipeline loops over independently.
+  # File naming convention: {stratum_safe_name}.counts.csv
+  #   e.g.  Beta.counts.csv, Alpha.counts.csv, CD4_T_cell.counts.csv
+  #   Safe name: spaces and special characters replaced with underscores.
+  counts_dir: "data/counts"
+
+  # Sample-level metadata: one row per biosample (donor/subject unit of analysis).
+  # Must contain the column named in contrasts.csv as biosample_id_col.
+  sample_metadata: "data/sample_metadata.csv"
+
+  # Contrast definitions: one row per comparison to run.
+  # See contrasts/contrasts_template.csv for column documentation.
+  contrasts_file: "contrasts/contrasts.csv"
+
+
+# -----------------------------------------------------------------------------
+# OUTPUT DIRECTORIES
+# All results are written here, organized by contrast_id / strata.
+# -----------------------------------------------------------------------------
+outputs:
+  # Root results directory. Structure created automatically:
+  #   results/{contrast_id}/{stratum}/intermediates/
+  #   results/{contrast_id}/{stratum}/plots/
+  #   results/{contrast_id}/summary/
+  # Where {stratum} is one biosample group (cell type, tissue, etc.)
+  # that the analysis was run on independently.
+  results_dir: "/home/biouser/workspace/EasyDE_validation/EasyDE/Mar25_allTraits/results"
+
+  # Structured log files -- one per contrast x stratum job.
+  # Also produces {stratum}.errors.log only when warnings/errors occurred.
+  logs_dir: "/home/biouser/workspace/EasyDE_validation/EasyDE/Mar25_allTraits/logs"
+
+
+# -----------------------------------------------------------------------------
+# ANALYSIS STEPS
+# Toggle entire analysis modules on or off.
+# Dependencies are handled automatically:
+#   - ruvseq requires deseq_base (always runs first)
+#   - fgsea runs on ruvseq results if ruvseq=true, else on base results
+#   - ruvseq_diagnostics only applies when ruvseq=true
+# -----------------------------------------------------------------------------
+steps:
+  deseq_base:          true   # Initial DESeq2 -- always required, cannot be disabled
+  ruvseq:              true   # RUVseq normalization + k selection
+  fgsea:               true   # Gene set enrichment (runs on best available DE results)
+  paired_analysis:     false  # Filter to donors present in BOTH groups before DE
+
+
+# -----------------------------------------------------------------------------
+# OUTPUT FILES
+# Control which files are written to disk.
+# The contrast summary (audit trail) is always written -- it is never optional.
+# -----------------------------------------------------------------------------
+write_outputs:
+  coldata_csv:              true    # Sample metadata used for each cell type contrast
+  deseq_base_results:       true    # DESeq2 results TSV (base model, before RUVseq)
+  ruvseq_results:           true    # DESeq2 results TSV (final model, after RUVseq)
+  fgsea_results_all:        true    # All fGSEA pathway results
+  fgsea_results_significant: false  # Disabled -- full tables written; filter downstream
+  volcano_plots:            true    # Volcano plot PDFs (one per step: base + ruvseq)
+  ruvseq_diagnostic_plots:  true    # Correlation heatmap + RLE elbow plot (ruvseq only)
+  contrast_summary:         true    # ALWAYS written -- per-contrast audit trail CSV
+
+
+# -----------------------------------------------------------------------------
+# SAMPLE FILTERING THRESHOLDS
+# Applied before any DE analysis.
+# -----------------------------------------------------------------------------
+filtering:
+  # Minimum number of cells in a cell type for a sample to be included
+  min_cells_per_sample: 20
+
+  # Gene-level filter: minimum raw counts to call a gene "expressed" in a sample
+  min_gene_counts: 5
+
+  # Column in sample_metadata.csv that uniquely identifies a biological donor/subject.
+  # Used by donor deduplication (when one donor has multiple samples) and by
+  # paired analysis (filtering to donors present in both groups).
+  # Must match an actual column name in your metadata file.
+  donor_col: "donor_accession"
+
+  # Paired analysis settings (only used when steps.paired_analysis = true)
+  paired:
+    pair_on: "donor_accession"    # Should match donor_col above in most cases
+
+
+# -----------------------------------------------------------------------------
+# DESEQ2 SETTINGS
+# -----------------------------------------------------------------------------
+deseq2:
+  fdr_threshold: 0.05       # Adjusted p-value cutoff for calling DEGs
+  l2fc_threshold: 0         # Minimum absolute log2 fold change to call a DEG
+                            # 0 = no fold change filter (use FDR only)
+                            # e.g. 1 = require at least 2-fold change
+  scale_numeric_covariates: true   # z-score scale numeric covariates (Age, BMI, etc.)
+  lfc_shrinkage: true       # Apply lfcShrink() (apeglm) after DESeq2 results
+                            # Recommended for visualization and ranking; does not
+                            # affect p-values or which genes are called significant
+
+
+# -----------------------------------------------------------------------------
+# RUVSEQ SETTINGS
+# Only used when steps.ruvseq = true
+# -----------------------------------------------------------------------------
+ruvseq:
+  max_latent_factors: 10        # Maximum k to test (actual max capped by sample size)
+  empirical_pval_threshold: 0.5 # Genes with p > this used as negative controls for RUVg
+
+
+# -----------------------------------------------------------------------------
+# FGSEA SETTINGS
+# Only used when steps.fgsea = true
+# -----------------------------------------------------------------------------
+fgsea:
+  fdr_threshold: 0.10       # FDR cutoff for significant pathways
+  min_gene_set_size: 10     # Minimum pathway size (genes)
+  max_gene_set_size: 500    # Maximum pathway size (genes)
+  n_top_pathways_plot: 20   # Number of pathways shown in barplot
+
+  # Which DE results to run fGSEA on.
+  # Options:
+  #   base      -- run only on base DESeq2 results
+  #   ruvseq    -- run only on RUVseq-corrected results (requires steps.ruvseq: true)
+  #   both      -- run on both; produces separate output files for each
+  # If steps.ruvseq is false, this setting is ignored and fGSEA runs on base results.
+  run_on: "both"
+
+  # Gene ranking statistic used to order genes for fGSEA.
+  # Options:
+  #   stat        -- DESeq2 Wald statistic (default). Signed and standardized;
+  #                 already captures both direction and significance. No extra
+  #                 computation required. Original pipeline behavior.
+  #   lfc_pvalue  -- sign(log2FoldChange) * -log10(pvalue). Weights by fold
+  #                 change magnitude. Useful if you want large-effect genes
+  #                 ranked higher regardless of their p-value stability.
+  #   lfc_shrunk  -- sign(log2FoldChange_shrunk) * -log10(pvalue). Uses
+  #                 apeglm-shrunk LFC for direction; most stable for
+  #                 lowly-expressed genes. Requires deseq2.lfc_shrinkage: true.
+  #                 Falls back to lfc_pvalue if shrinkage was not run.
+  ranking_stat: "stat"
+
+  # Gene sets file (GMT format). Path relative to pipeline root.
+  gene_sets_file: "resources/gsea_files/reactome_kegg.gmt.txt"
+
+  # Genes to exclude before ranking (ribosomal proteins, mitochondrial, etc.)
+  # Each is a CSV file with an "Approved symbol" column.
+  # Leave list empty ([]) to skip exclusion filtering.
+  exclude_gene_lists:
+    - "resources/gsea_files/rpl_genes.csv"
+    - "resources/gsea_files/rps_genes.csv"
+    - "resources/gsea_files/mtr_genes.csv"
+
+  # Additional gene name patterns to exclude (regex applied to gene symbols)
+  exclude_gene_patterns:
+    - "^MT-"      # Mitochondrial genes
+    - "^NA"       # Genes with NA-like names
+
+
+# -----------------------------------------------------------------------------
+# BENCHMARKING
+# Benchmark DE results against curated gene signatures (step 07).
+# Disabled if signature_file is empty ("").
+# -----------------------------------------------------------------------------
+benchmarking:
+  # Master signature file with columns: signature_id, tissue, cell_type,
+  # control_type, category, class, subcategory, description, genes, num_genes,
+  # confidence, source_file. Genes are pipe-separated.
+  # Hierarchy: control_type (positive/negative) > category (cell_identity /
+  # artifact / subject_confounder) > class (~34 mid-level) > subcategory.
+  # Signatures with cell_type matching the stratum or "all_cells" are tested.
+  signature_file: "resources/benchmarking/master_gene_signatures.tsv"
+
+  # Tissue filter: only signatures matching this tissue (case-insensitive)
+  # or with Tissue = "ALL" / "Pan-tissue" are used.
+  tissue: "Pancreas"
+
+
+# -----------------------------------------------------------------------------
+# LOGGING
+# Controls the verbosity and format of structured log output.
+# -----------------------------------------------------------------------------
+logging:
+  level: "WARN"    # Options: DEBUG | INFO | WARN | ERROR
+                   # DEBUG: prints every filtering step
+                   # INFO:  prints step start/end + sample counts
+                   # WARN:  prints only warnings and errors (default -- quiet runs)
+                   # ERROR: prints only errors and skips

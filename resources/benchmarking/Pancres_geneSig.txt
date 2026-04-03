@@ -1,0 +1,80 @@
+Tissue	CellType	Description	Genes	Confidence	NumGenes	Category
+Pancreas	Beta	Identity markers - Primary insulin-secreting endocrine cells	INS|IAPP|MAFA|DLK1|ADCYAP1|PBP|ZNF385D|TRPM3|LRFN2|PLUT|DOCK10|KIRREL3|PCSK1|SLC30A8|GCK|PDX1|ISL1|ABCC8|KCNJ11|HHATL|SAMD11|LRRTM3|WSCD1|LINC01099	High	24	Identity
+Pancreas	Alpha	Identity markers - Glucagon-producing cells	GCG|TTR|IRX2|FAP|DPP4|GPR119|PTPRT|PDK4|LOXL4|STK32B|ARX|MAFB|TM4SF4|CD24|GC|CRYBA2|KCNNA1|PCSK2|DLK1|LOXL2	High	20	Identity
+Pancreas	Delta	Identity markers - Somatostatin-secreting cells	SST|HHEX|LEPR|RBP4|LRFN5|ADARB2|ERBB4|KCNT2|GHRL|DPP4|HMGCS2|LY6E|FRZB|PCSK1	High	14	Identity
+Pancreas	Gamma_Epsilon	Identity markers - PP and ghrelin-producing cells	PPY|GHRL|ARX|ETAS1|THSD7A|CACNA2D3|IRX2|FEV|PAX4|PAX6|NKX2-2|PPY2	High	12	Identity
+Pancreas	CyclingAlpha	Identity markers - Proliferative alpha cell subpopulation	GCG|MKI67|CDK1|TOP2A|CENPF|BIRC5|AURKA|PLK1|CCNB1|PCNA|ASPM|STMN1|BUB1|CCNA2	Medium-High	14	Identity
+Pancreas	Ductal	Identity markers - Bicarbonate/fluid secreting duct cells	CFTR|KRT19|KRT7|SOX9|HNF1B|AMBP|MMP7|MUC1|SLC4A4|CA2|SPP1|CEACAM6|TFF1|AQP1|FXYD2|SLC26A6|ANPEP|ONECUT2	High	18	Identity
+Pancreas	Acinar	Identity markers - Digestive enzyme-producing cells	PRSS1|CPA1|CTRB1|CTRB2|REG1A|REG3A|PNLIP|AMY2A|CEL|PLA2G2A|MECOM|CPB1|SYCN|KLK1|REG1B|PRSS2|CTRC	High	17	Identity
+Pancreas	ActiveStellate	Identity markers - Myofibroblast-like activated stellate cells	ACTA2|COL1A1|COL3A1|COL6A1|PDGFRB|LUM|BGN|FAP|VIM|POSTN|FN1|THY1|DCN|SSP1|TAGLN|COL1A2	High	16	Identity
+Pancreas	QuiescentStellate	Identity markers - Quiescent stellate cells with vitamin A storage	PDGFRB|RGS5|FABP4|GFAP|VIM|DES|NGF|NCAM1|CYGB|ADIPOQ|S100A4|ALB|LPL	High	13	Identity
+Pancreas	Endothelial	Identity markers - Vascular endothelial cells	PECAM1|VWF|PLVAP|CDH5|ESAM|KDR|FLT1|NKX2-3|CD34|CLDN5|EMCN|ICAM1|IGFBP3|MCAM|SOX4|CCND1|VAT1|FMNL3	High	18	Identity
+Pancreas	Immune	Identity markers - Heterogeneous immune population	PTPRC|CD3E|CD4|CD8A|CD14|CD163|SPP1|HLA-DRA|CD86|TPSAB1|CCR6|CCL20|CD74|B2M|STAT1|IRF1|IL15|GBP2|IFIT3	High	19	Identity
+Pancreas	Beta	Insulin secretion / GSIS pathway	SLC2A2|GCK|KCNJ11|ABCC8|CACNA1C|ITPR3|RYR2|INS|IAPP|PCSK1|PCSK2|CPE	High	12	Pathway
+Pancreas	Beta	Beta cell identity transcription factors	PDX1|NKX6-1|MAFA|NEUROD1|ISL1|PAX6|RFX6	High	7	Pathway
+Pancreas	Beta	MODY genes pathway	HNF4A|GCK|HNF1A|PDX1|HNF1B|NEUROD1|KLF11|CEL|PAX4|INS	High	10	Pathway
+Pancreas	Beta	ER stress / UPR pathway	TXNIP|DDIT3|HSPA5|ATF4|EIF2AK3|ATF6|ERN1	High	7	Pathway
+Pancreas	Alpha	Glucagon signaling pathway	GCG|GCGR|GLP1R|ARX|MAFB|TTR|PCSK2|DPP4	High	8	Pathway
+Pancreas	Alpha	Amino acid sensing and ion channels	SLC5A2|SLC2A1|HK1|CACNA1A	Medium	4	Pathway
+Pancreas	Delta	Somatostatin signaling pathway	SST|HHEX|SSTR2|SSTR3|SSTR5|LEPR|CLIC6|TFCP2L1	High	8	Pathway
+Pancreas	Gamma_Epsilon	PP and Ghrelin signaling	PPY|GHRL|MBOAT4|ETV1|KCNK1|PPYR1|NPY|PAX6	Medium	8	Pathway
+Pancreas	Ductal	Bicarbonate transport pathway	CFTR|SLC4A4|SLC26A6|SLC26A3|CA2|SLC4A2|AQP1	High	7	Pathway
+Pancreas	Ductal	Notch/Wnt developmental signaling	SOX9|HES1|NEUROG3|SCTR|CDX2|HNF1B	High	6	Pathway
+Pancreas	Ductal	Mucus production	MUC1|MUC6|MUC5B|MUC5AC	High	4	Pathway
+Pancreas	Acinar	Digestive enzyme synthesis / protein export	PRSS1|CELA3A|CPA1|AMY2A|REG3A|REG1A|PTF1A|PNLIP|CPB1	High	9	Pathway
+Pancreas	ActiveStellate	ECM remodeling / TGF-beta / fibrosis	COL1A1|ACTA2|PDGFRA|POSTN|FN1|VIM|TGFB1|COL3A1|COL1A2	High	9	Pathway
+Pancreas	QuiescentStellate	Retinol metabolism / lipid storage	RGS5|PDGFRA|FABP4|GFAP|DES|CYGB|LPL|ADIPOQ	High	8	Pathway
+Pancreas	Endothelial	VEGF signaling / angiogenesis	PECAM1|VWF|PLVAP|CDH5|KDR|FLT1|NOS3|VEGFA	High	8	Pathway
+Pancreas	Immune	Antigen presentation / cytokine signaling	C1QA|C1QB|C1QC|CD163|MRC1|HLA-DRA|STAT1|IRF1|IL15|GBP2|IFIT3|CD74	High	12	Pathway
+Pancreas	CyclingAlpha	Cell cycle / DNA replication	MKI67|CDK1|TOP2A|CENPF|BIRC5|CCNB1|PCNA|AURKA|PLK1|BUB1|CCNA2	High	11	Pathway
+Pancreas	Beta	T1D downregulated - Beta cell identity loss	INS|IAPP|MAFA|GCK|SLC30A8|G6PC2|NEUROD1|ADCYAP1|WSCD1|HHATL|SAMD11|LRRTM3	High	12	T1D
+Pancreas	Beta	T1D upregulated - MHC/antigen presentation	HLA-A|HLA-B|HLA-C|B2M|HLA-DPB1|HLA-DRB1|CD74	High	7	T1D
+Pancreas	Beta	T1D upregulated - Interferon response genes	GBP2|IFIT3|STAT1|IRF1|PSMB8|PSMB9	High	6	T1D
+Pancreas	Beta	T1D upregulated - Cytokine/stress signaling	IL15|TNF|NFKBIA	High	3	T1D
+Pancreas	Alpha	T1D signature - Alpha cell reprogramming	ARX|MAFB|GIPR|ISL1|NEUROD1|ERLEC1|HSP90B1	High	7	T1D
+Pancreas	Delta	T1D signature - Paracrine dysregulation	SST|HHEX|HLA-A|HLA-B|HLA-C	Medium	5	T1D
+Pancreas	Gamma_Epsilon	T1D signature - Proportion changes	PPY|GHRL	Medium	2	T1D
+Pancreas	Acinar	T1D downregulated - Acinar atrophy/REG loss	REG3A|REG1B|REG3G|AMY2A|CELA3A|PRSS1	High	6	T1D
+Pancreas	Ductal	T1D signature - Ductal remodeling	CFTR|KRT19|SOX9	Medium	3	T1D
+Pancreas	Immune	T1D upregulated - CD8 T cell effectors	PRF1|GZMH|NKG7|CST7|EOMES|GZMA|CCL5	High	7	T1D
+Pancreas	Immune	T1D upregulated - CD4 Th2 signature	GATA3|CCR4|IRF4|IL4R|TNFRSF4	High	5	T1D
+Pancreas	Immune	T1D signature - T cell exhaustion markers	TIGIT|PDCD1|VSIR	High	3	T1D
+Pancreas	Immune	T1D upregulated - Monocyte/TNF pathway	TNF|ACTG1|REL|TRIB1|GRN|LGALS9	High	6	T1D
+Pancreas	Endothelial	T1D signature - HIF/inflammation pathway	HIF1A|VEGFA|ICAM1	Medium	3	T1D
+Pancreas	ActiveStellate	T1D signature - Ligand-receptor changes	BMP5|NRXN1|CADM1|NEGR1	Medium	4	T1D
+Pancreas	QuiescentStellate	T1D signature - Stellate stress response	PDGFRB|RGS5|VIM	Medium	3	T1D
+Pancreas	CyclingAlpha	T1D signature - Proliferative response	GCG|MKI67|CDK1|TOP2A	Medium	4	T1D
+Pancreas	Beta	T2D downregulated - Identity loss/dedifferentiation	MAFA|PDX1|NKX6-1|SLC2A2|GCK|INS|IAPP|RFX6|PAX6|FXYD2	High	10	T2D
+Pancreas	Beta	T2D upregulated - Stress/dedifferentiation markers	ALDH1A3|TSHR|SLC4A4|TNFRSF11B	High	4	T2D
+Pancreas	Beta	T2D altered - Vesicle/ion channel dysfunction	SYT1|SEPT9|KCNJ11|ABCC8|TALK1|BNIP3|GRAMD2B	High	7	T2D
+Pancreas	Beta	T2D upregulated - UPR/ER stress response	DDIT3|HSPA5|ATF6|TXNIP	High	4	T2D
+Pancreas	Alpha	T2D signature - Hyperplasia/dysfunction	ARX|MAFB|G6PC2|TMEM55A|GCG	High	5	T2D
+Pancreas	Delta	T2D signature - Altered paracrine regulation	SST|HHEX|LEPR|GHSR|DRD2	Medium	5	T2D
+Pancreas	Gamma_Epsilon	T2D signature - Stable/slight expansion	PPY|PAX4|GHRL	Medium	3	T2D
+Pancreas	Acinar	T2D downregulated - Identity loss/ADM transition	REG1A|PRSS1|AMY2A|CPA1	High	4	T2D
+Pancreas	Ductal	T2D upregulated - Pro-inflammatory signaling	KRT19|SOX9|CD24	Medium	3	T2D
+Pancreas	Endothelial	T2D signature - Pathological angiogenesis	BST1|PLVAP|PECAM1|NOS3	Medium	4	T2D
+Pancreas	ActiveStellate	T2D upregulated - Islet fibrosis	COL1A1|COL1A2|VCAN|SULF1|PDGFRA	High	5	T2D
+Pancreas	QuiescentStellate	T2D signature - Activation transition	PDGFRB|RGS5|ACTA2	Medium	3	T2D
+Pancreas	Immune	T2D upregulated - Chronic inflammation	TNF|TNFRSF1A|B2M|IL6|CCL2	Medium	5	T2D
+Pancreas	CyclingAlpha	T2D signature - Compensatory proliferation	GCG|MKI67|CDK1	Low-Medium	3	T2D
+Pancreas	Ductal	PDAC classical subtype signature	GATA6|HNF1A|TFF1|TFF3|MUC5AC|CEACAM6|S100P	High	7	PDAC
+Pancreas	Ductal	PDAC basal-like subtype signature	KRT81|S100A2|VIM|COL17A1|LAMB3	High	5	PDAC
+Pancreas	Ductal	PDAC driver mutations	KRAS|TP53|SMAD4|CDKN2A	High	4	PDAC
+Pancreas	Ductal	PDAC ductal transformation/ADM markers	SOX9|ONECUT2|MMP7|MMP1|REG4|RAP1GAP|S100A10|PIGR	High	8	PDAC
+Pancreas	Acinar	PDAC acinar-to-ductal metaplasia	REG3A|REG1B|REG1A|PRSS1|CPB1|PNLIP	High	6	PDAC
+Pancreas	ActiveStellate	PDAC myCAF - ECM/contractility	ACTA2|TAGLN|MYL9|COL1A1|COL3A1	High	5	PDAC
+Pancreas	ActiveStellate	PDAC iCAF - Inflammatory fibroblasts	CXCL12|IL6|GSN|CFD	High	4	PDAC
+Pancreas	ActiveStellate	PDAC apCAF - Antigen-presenting fibroblasts	CD74|HLA-DRA|HLA-DPA1	High	3	PDAC
+Pancreas	ActiveStellate	PDAC POSTN+ CAF - EMT/angiogenesis	POSTN|FAP|THY1|SPP1|P4HA1|TIMP1	High	6	PDAC
+Pancreas	QuiescentStellate	PDAC signature - CAF transition	PDGFRB|RGS5|ACTA2|COL1A1	Medium	4	PDAC
+Pancreas	Immune	PDAC M2/TAM macrophages - Immunosuppressive	C1QC|MARCO|APOE|CD14|FOLR2|CD163	High	6	PDAC
+Pancreas	Immune	PDAC exhausted CD8 T cells	LAG3|TIGIT|PDCD1|EOMES	High	4	PDAC
+Pancreas	Immune	PDAC B cell/plasma cell signature	IGHG1|IGKC	Medium	2	PDAC
+Pancreas	Immune	PDAC chemokine/cytokine signaling	CCL2|CCL4|TNF|TGFB1	High	4	PDAC
+Pancreas	Endothelial	PDAC pathological angiogenesis	RGS5|VEGFA|NRP1|PLVAP	Medium	4	PDAC
+Pancreas	Beta	PDAC endocrine disruption	INS|PDX1|MAFA	Low-Medium	3	PDAC
+Pancreas	Alpha	PDAC glucagon dysregulation	GCG|ARX|MAFB	Low	3	PDAC
+Pancreas	Delta	PDAC somatostatin disruption	SST|HHEX	Low	2	PDAC
+Pancreas	Gamma_Epsilon	PDAC endocrine disruption	PPY|GHRL	Low	2	PDAC
+Pancreas	CyclingAlpha	PDAC proliferative markers in tumor context	TOP2A|MKI67|CDK1|CCNB1	Low	4	PDAC

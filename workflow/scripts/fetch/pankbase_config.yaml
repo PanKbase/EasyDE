@@ -1,0 +1,81 @@
+# =============================================================================
+# pankbase_config.yaml
+# Configuration for the PanKbase data source adapter
+#
+# This file is ONLY relevant if you are fetching data from PanKbase using
+# workflow/scripts/fetch/pankbase_helpers.R
+#
+# Users providing their own count matrices and metadata do not need this file.
+#
+# USAGE:
+#   Rscript workflow/scripts/fetch/pankbase_helpers.R \
+#       --pankbase-config workflow/scripts/fetch/pankbase_config.yaml \
+#       --config config/config.yaml \
+#       --strata "Beta|Alpha|Delta"
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Count matrix URLs
+# -----------------------------------------------------------------------------
+
+# Base S3 URL for pseudobulk count matrices.
+# The cell type name (URL-encoded) and file_pattern are appended to this.
+base_counts_url: "https://pankbase-data-v1.s3.us-west-2.amazonaws.com/processed_data/single_cell_RNA/scRNA_matrices/"
+
+# File suffix appended after the URL-encoded cell type name.
+# Update this if PanKbase changes their file naming convention.
+# Verified 2025-11-04: actual S3 files are named {CellType}_sample_gex_total_counts.fixed.txt
+file_pattern: "_sample_gex_total_counts.fixed.txt"
+
+
+# -----------------------------------------------------------------------------
+# Metadata URLs
+# -----------------------------------------------------------------------------
+
+# Donor-level metadata table (one row per donor)
+donor_metadata_url: "https://pankbase-data-v1.s3.us-west-2.amazonaws.com/analysis_resources/meta_data_table/human-donor_update_251210_v3.tar.gz"
+
+# Biosample-level metadata table (one row per biosample)
+biosample_metadata_url: "https://pankbase-data-v1.s3.us-west-2.amazonaws.com/analysis_resources/meta_data_table/biosamples.2_2025-11-06.txt"
+
+
+# -----------------------------------------------------------------------------
+# Local cache
+# Downloaded files are cached here to avoid re-downloading on every run.
+# Path is relative to the pipeline root directory.
+# -----------------------------------------------------------------------------
+cache_dir: "data/cache"
+
+
+# -----------------------------------------------------------------------------
+# Column name mappings
+# These tell the helper which columns in the PanKbase metadata files correspond
+# to the join keys. Update if PanKbase changes their column naming.
+# -----------------------------------------------------------------------------
+columns:
+  donor_accession:    "donor_accession"     # join key in donor metadata
+  biosample_accession: "biosample_accession" # join key in biosample metadata
+  raw_accession_col:  "Accession"           # original column name before renaming
+
+
+# -----------------------------------------------------------------------------
+# Supplemental local metadata
+# These files are PanKbase-project-specific resources that are joined into
+# sample_metadata.csv during the fetch step. They live in resources/ and are
+# committed to the repository alongside the code.
+# Each entry must specify:
+#   path     — path to the file (relative to pipeline root)
+#   join_col — column in that file that matches sample_accession
+# -----------------------------------------------------------------------------
+supplemental_metadata:
+
+  # 10x Genomics capture chemistry version (V2 vs V3) per sample.
+  # Extracted from the single-cell object. Used as a batch covariate in DESeq2.
+  - path: "resources/chemistry_metadata.csv"
+    join_col: "samples"
+
+  # Per-sample cell counts per cell type.
+  # Used to filter out samples with fewer than min_cells cells in a given stratum.
+  - path: "resources/sc_object_cellcounts.csv"
+    join_col: "samples"

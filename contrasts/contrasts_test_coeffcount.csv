@@ -1,0 +1,3 @@
+contrast_id,contrast_var,biosample_id_col,control_grp,experimental_grp,strata,covariates,latent_corr_vars,filter_col_1,filter_val_1,filter_col_2,filter_val_2,filter_col_3,filter_val_3
+Prediabetic_vs_ND,Derived diabetes status,sample_accession,Normal,Prediabetes,QuiescentStellate,Age (years)|Gender|BMI|Ethnicities|chemistry,Description of diabetes status|Age (years)|Gender|BMI|Ethnicities|chemistry,treatment,no_treatment,,,,
+ND_vs_T2D,Description of diabetes status,sample_accession,Control Without Diabetes,Type 2 Diabetes,Beta,Age (years)|Gender|BMI|Ethnicities|chemistry,Description of diabetes status|Age (years)|Gender|BMI|Ethnicities|chemistry,Description of diabetes status,Control Without Diabetes|Type 2 Diabetes,treatment,no_treatment,,

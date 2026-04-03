@@ -1,0 +1,59 @@
+name: EasyDE
+channels:
+  - conda-forge
+  - bioconda
+  - r
+  - defaults
+dependencies:
+  # --- Python (pinned for snakemake compatibility) ---
+  - python >=3.11,<3.14
+  - pip
+
+  # --- Workflow management ---
+  - snakemake-minimal >=7,<8
+
+  # --- R base ---
+  - r-base
+
+  # --- Bioconductor core (pipeline requirements) ---
+  - bioconductor-deseq2
+  - bioconductor-ruvseq
+  - bioconductor-edaseq
+  - bioconductor-fgsea
+  - bioconductor-genomeinfodb
+  - bioconductor-apeglm
+
+  # --- Bioconductor extras ---
+  - bioconductor-enhancedvolcano   # optional: nicer volcano plots
+
+  # --- Pipeline requirements ---
+  - r-yaml
+  - r-data.table
+  - r-ggrepel
+  - r-viridis
+  - r-optparse
+  - r-r.utils
+
+  # --- Tidyverse ---
+  - r-tidyverse
+
+  # --- Plotting & stats extras ---
+  - r-ggplot2
+  - r-ggcorrplot
+  - r-reshape2
+  - r-rcolorbrewer
+  - r-ggh4x
+
+  # --- Data wrangling extras ---
+  - r-matrix
+  - r-janitor
+  - r-hmisc
+  - r-stringi
+
+  # --- Optional ---
+  - r-msigdbr
+  - r-rocr
+
+  # --- Jupyter / notebook support ---
+  - r-irkernel
+  - notebook
