@@ -1,5 +1,5 @@
 # =============================================================================
-# EasyDE -- Main Configuration File
+# EasyDE — Main Configuration File
 # =============================================================================
 # All pipeline behavior is controlled from here.
 # No paths, thresholds, or flags should be hardcoded in any script.
@@ -42,12 +42,11 @@ outputs:
   #   results/{contrast_id}/summary/
   # Where {stratum} is one biosample group (cell type, tissue, etc.)
   # that the analysis was run on independently.
-  results_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr15_allTraits/results"
+  results_dir: "/tscc/projects/ps-gaultonlab/projects/PankBase/DifferentialGenes/TSCC/Mar5_allTraits/results"
 
-  # Structured log files -- one per contrast x stratum job.
+  # Structured log files — one per contrast x stratum job.
   # Also produces {stratum}.errors.log only when warnings/errors occurred.
-  logs_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr15_allTraits/logs"
-
+  logs_dir: "/tscc/projects/ps-gaultonlab/projects/PankBase/DifferentialGenes/TSCC/Mar5_allTraits/logs"
 
 # -----------------------------------------------------------------------------
 # ANALYSIS STEPS
@@ -58,7 +57,7 @@ outputs:
 #   - ruvseq_diagnostics only applies when ruvseq=true
 # -----------------------------------------------------------------------------
 steps:
-  deseq_base:          true   # Initial DESeq2 -- always required, cannot be disabled
+  deseq_base:          true   # Initial DESeq2 — always required, cannot be disabled
   ruvseq:              true   # RUVseq normalization + k selection
   fgsea:               true   # Gene set enrichment (runs on best available DE results)
   paired_analysis:     false  # Filter to donors present in BOTH groups before DE
@@ -67,17 +66,17 @@ steps:
 # -----------------------------------------------------------------------------
 # OUTPUT FILES
 # Control which files are written to disk.
-# The contrast summary (audit trail) is always written -- it is never optional.
+# The contrast summary (audit trail) is always written — it is never optional.
 # -----------------------------------------------------------------------------
 write_outputs:
   coldata_csv:              true    # Sample metadata used for each cell type contrast
   deseq_base_results:       true    # DESeq2 results TSV (base model, before RUVseq)
   ruvseq_results:           true    # DESeq2 results TSV (final model, after RUVseq)
   fgsea_results_all:        true    # All fGSEA pathway results
-  fgsea_results_significant: false  # Disabled -- full tables written; filter downstream
+  fgsea_results_significant: true   # Significant fGSEA results only (FDR filtered)
   volcano_plots:            true    # Volcano plot PDFs (one per step: base + ruvseq)
   ruvseq_diagnostic_plots:  true    # Correlation heatmap + RLE elbow plot (ruvseq only)
-  contrast_summary:         true    # ALWAYS written -- per-contrast audit trail CSV
+  contrast_summary:         true    # ALWAYS written — per-contrast audit trail CSV
 
 
 # -----------------------------------------------------------------------------
@@ -137,21 +136,21 @@ fgsea:
 
   # Which DE results to run fGSEA on.
   # Options:
-  #   base      -- run only on base DESeq2 results
-  #   ruvseq    -- run only on RUVseq-corrected results (requires steps.ruvseq: true)
-  #   both      -- run on both; produces separate output files for each
+  #   base      — run only on base DESeq2 results
+  #   ruvseq    — run only on RUVseq-corrected results (requires steps.ruvseq: true)
+  #   both      — run on both; produces separate output files for each
   # If steps.ruvseq is false, this setting is ignored and fGSEA runs on base results.
   run_on: "both"
 
   # Gene ranking statistic used to order genes for fGSEA.
   # Options:
-  #   stat        -- DESeq2 Wald statistic (default). Signed and standardized;
+  #   stat        — DESeq2 Wald statistic (default). Signed and standardized;
   #                 already captures both direction and significance. No extra
   #                 computation required. Original pipeline behavior.
-  #   lfc_pvalue  -- sign(log2FoldChange) * -log10(pvalue). Weights by fold
+  #   lfc_pvalue  — sign(log2FoldChange) * -log10(pvalue). Weights by fold
   #                 change magnitude. Useful if you want large-effect genes
   #                 ranked higher regardless of their p-value stability.
-  #   lfc_shrunk  -- sign(log2FoldChange_shrunk) * -log10(pvalue). Uses
+  #   lfc_shrunk  — sign(log2FoldChange_shrunk) * -log10(pvalue). Uses
   #                 apeglm-shrunk LFC for direction; most stable for
   #                 lowly-expressed genes. Requires deseq2.lfc_shrinkage: true.
   #                 Falls back to lfc_pvalue if shrinkage was not run.
@@ -175,46 +174,12 @@ fgsea:
 
 
 # -----------------------------------------------------------------------------
-# PATHWAY DRILLDOWN (step 08)
-# Generates two self-contained HTML files per contrast:
-#   pathway_drilldown.html        — positive: fGSEA mega-sets, 3-level drill-down
-#   negative_controls_drilldown.html — negative: LLM-curated artifact/confounder sigs
-# Set enabled: false to skip both.
-# Paths are relative to the pipeline root directory.
-# -----------------------------------------------------------------------------
-pathway_drilldown:
-  enabled: true
-  mega_sets:     "resources/pathway_drilldown/mega_sets.tsv"
-  negative_sigs: "resources/benchmarking/master_gene_signatures.tsv"
-  hallmark_gmt:  "resources/gsea_files/hallmark.gmt"
-
-
-# -----------------------------------------------------------------------------
-# BENCHMARKING
-# Benchmark DE results against curated gene signatures (step 07).
-# Disabled if signature_file is empty ("").
-# -----------------------------------------------------------------------------
-benchmarking:
-  # Master signature file with columns: signature_id, tissue, cell_type,
-  # control_type, category, class, subcategory, description, genes, num_genes,
-  # confidence, source_file. Genes are pipe-separated.
-  # Hierarchy: control_type (positive/negative) > category (cell_identity /
-  # artifact / subject_confounder) > class (~34 mid-level) > subcategory.
-  # Signatures with cell_type matching the stratum or "all_cells" are tested.
-  signature_file: "resources/benchmarking/master_gene_signatures.tsv"
-
-  # Tissue filter: only signatures matching this tissue (case-insensitive)
-  # or with Tissue = "ALL" / "Pan-tissue" are used.
-  tissue: "Pancreas"
-
-
-# -----------------------------------------------------------------------------
 # LOGGING
 # Controls the verbosity and format of structured log output.
 # -----------------------------------------------------------------------------
 logging:
-  level: "WARN"    # Options: DEBUG | INFO | WARN | ERROR
+  level: "INFO"    # Options: DEBUG | INFO | WARN | ERROR
                    # DEBUG: prints every filtering step
                    # INFO:  prints step start/end + sample counts
-                   # WARN:  prints only warnings and errors (default -- quiet runs)
+                   # WARN:  prints only warnings and errors
                    # ERROR: prints only errors and skips

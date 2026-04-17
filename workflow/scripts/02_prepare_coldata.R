@@ -324,7 +324,7 @@ main <- function(config_path, contrast_id, stratum) {
     # Separate gene column from counts
     gene_names          <- raw_mat[[1]]
     raw_mat             <- raw_mat[, -1, drop = FALSE]
-    colnames(raw_mat)   <- gsub("\\+", "-", colnames(raw_mat))
+    colnames(raw_mat)   <- sanitize_sample_id(colnames(raw_mat))
     raw_mat             <- as.data.frame(lapply(raw_mat, as.numeric))
     rownames(raw_mat)   <- gene_names
 
@@ -394,6 +394,9 @@ main <- function(config_path, contrast_id, stratum) {
         )
         return(invisible(NULL))
     }
+
+    # Canonicalize sample IDs to match sanitized count-matrix column names
+    sample_metadata[[biosample_id_col]] <- sanitize_sample_id(sample_metadata[[biosample_id_col]])
 
     # --- Filter: minimum cells per sample ---
     if (!is.null(cfg$filtering$min_cells_per_sample)) {

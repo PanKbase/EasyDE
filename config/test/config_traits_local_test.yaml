@@ -42,11 +42,11 @@ outputs:
   #   results/{contrast_id}/summary/
   # Where {stratum} is one biosample group (cell type, tissue, etc.)
   # that the analysis was run on independently.
-  results_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr15_allTraits/results"
+  results_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr17_snakemake_test/results"
 
   # Structured log files -- one per contrast x stratum job.
   # Also produces {stratum}.errors.log only when warnings/errors occurred.
-  logs_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr15_allTraits/logs"
+  logs_dir: "/home/biouser/workspace/EasyDE_validation/NewResults/Apr17_snakemake_test/logs"
 
 
 # -----------------------------------------------------------------------------

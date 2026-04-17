@@ -95,6 +95,21 @@ fgsea:
 
 
 # -----------------------------------------------------------------------------
+# PATHWAY DRILLDOWN (step 08)
+# Generates two self-contained HTML files per contrast:
+#   pathway_drilldown.html        — positive: fGSEA mega-sets, 3-level drill-down
+#   negative_controls_drilldown.html — negative: LLM-curated artifact/confounder sigs
+# Set enabled: false to skip both.
+# Paths are relative to the pipeline root directory.
+# -----------------------------------------------------------------------------
+pathway_drilldown:
+  enabled: true
+  mega_sets:     "resources/pathway_drilldown/mega_sets.tsv"
+  negative_sigs: "resources/benchmarking/master_gene_signatures.tsv"
+  hallmark_gmt:  "resources/gsea_files/hallmark.gmt"
+
+
+# -----------------------------------------------------------------------------
 # BENCHMARKING
 # Benchmark DE results against curated gene signatures (step 07).
 # Disabled if signature_file is empty ("").

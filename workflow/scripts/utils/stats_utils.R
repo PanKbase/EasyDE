@@ -153,6 +153,26 @@ normalize_name <- function(x) {
 }
 
 
+#' Canonicalize sample IDs for join safety
+#'
+#' Mirrors R's make.names() convention: replaces any character not in
+#' [A-Za-z0-9_.] with ".", collapses consecutive ".", trims leading/trailing ".".
+#' Apply to BOTH count-matrix column names and metadata biosample_id_col values
+#' before any intersect/match — the Pseudobulk tool applies make.names() when
+#' writing column headers, so this keeps both sides in sync regardless of what
+#' special characters ("+", "-", spaces, "/", etc.) appear in treatment IDs.
+#'
+#' Idempotent: sanitize_sample_id(sanitize_sample_id(x)) == sanitize_sample_id(x)
+#'
+#' @param x Character vector of sample IDs
+#' @return Character vector with special characters replaced by "."
+sanitize_sample_id <- function(x) {
+    x <- gsub("[^A-Za-z0-9_.]", ".", x)
+    x <- gsub("\\.{2,}", ".", x)
+    gsub("^\\.|\\.$", "", x)
+}
+
+
 #' Find the metadata cell-count column that corresponds to a stratum name
 #'
 #' Resolves naming mismatches between how strata appear in contrasts.csv
