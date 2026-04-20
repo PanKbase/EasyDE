@@ -110,6 +110,35 @@ relationship between W factors and all known variables:
 
 ---
 
+## Sample and Gene Filtering (step 02)
+
+Step 02 (`02_prepare_coldata.R`) applies two distinct stages of filtering before dispersion estimation: **QC filters** remove low-quality samples and lowly-expressed genes, and **analytical restrictions** define which donors enter a given comparison.
+
+### QC filters
+
+**Samples and donors:**
+
+- **Minimum cells per sample** (`filtering.min_cells_per_sample`; default 20). Biosamples aggregating fewer than 20 single cells, or lacking a cell count, are discarded so that pseudobulk profiles are statistically stable.
+- **Donor deduplication** (unpaired mode). If a donor contributed multiple biosamples, one is retained at random (seeded for reproducibility) to avoid pseudoreplication. Skipped in paired mode, where repeat biosamples are genuine replicates.
+- **Preflight sample-size gates.** Strata with fewer than 3 surviving samples are marked `skipped_no_samples`. For categorical contrasts, fewer than 3 samples per group — or a sample count not exceeding the number of model coefficients — triggers `skipped_min_group`. In paired mode, strata with no donors present in both arms are marked `skipped_no_pairs`.
+
+**Genes:**
+
+A group-aware low-count filter (`filtering.min_gene_counts`; default 5) is applied before size-factor and dispersion estimation. For categorical contrasts, a gene is retained if it has at least `min_gene_counts` reads in at least half the samples of *either* group (union rule), preserving condition-specific signals such as induced genes, lineage markers, or cytokine responses that a symmetric threshold would discard. For continuous contrasts, a gene must meet the count threshold in at least half of all samples.
+
+### Analytical restrictions
+
+After QC, the cohort is narrowed to donors relevant to the specific comparison:
+
+- **Contrast group restriction.** For categorical contrasts, only samples in `control_grp` or `experimental_grp` are retained.
+- **User-defined metadata filters** (`filter_col_N` / `filter_val_N` in the contrasts CSV, up to three pairs). Applied sequentially to restrict the analysis to a metadata stratum — for example, untreated donors, a single sex, or a specific tissue source.
+- **Paired-design matching** (paired mode). Only donors present in both arms are kept.
+- **Count-matrix alignment.** The count matrix is reduced to the intersection of its columns with surviving biosample IDs; metadata-only samples are logged and dropped.
+
+Cell-type labels are matched case- and punctuation-insensitively, so `"Gamma+Epsilon"` and `"Gamma_Epsilon"` are equivalent.
+
+---
+
 ## Edge Cases and Workarounds
 
 The pipeline detects and handles several edge cases that commonly arise in
